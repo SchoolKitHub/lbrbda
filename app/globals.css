@@ -1319,3 +1319,75 @@ a:hover { color: var(--color-gold-light); }
 .leaflet-control-attribution a {
   color: var(--color-gold) !important;
 }
+
+/* ============================================
+   Orientation Barrier
+   ============================================ */
+.orientation-barrier {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(10, 22, 40, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.orientation-content {
+  max-width: 320px;
+}
+
+.orientation-icon {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+.orientation-title {
+  font-family: var(--font-playfair), serif;
+  font-size: 1.8rem;
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.orientation-text {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  font-size: 1rem;
+}
+
+.orientation-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  opacity: 0.6;
+}
+
+.phone-outline {
+  border: 2px solid var(--color-gold);
+  border-radius: 4px;
+}
+
+.phone-outline.portrait {
+  width: 24px;
+  height: 40px;
+}
+
+.phone-outline.landscape {
+  width: 40px;
+  height: 24px;
+}
+
+.arrow-rotate {
+  font-size: 1.5rem;
+  color: var(--color-gold);
+}

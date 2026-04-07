@@ -35,6 +35,8 @@ export const metadata: Metadata = {
   },
 };
 
+import OrientationBarrier from "@/components/OrientationBarrier";
+
 export default function RootLayout({
   children,
 }: {
@@ -43,6 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body style={{ fontFamily: "var(--font-inter), system-ui, sans-serif" }}>
+        <OrientationBarrier />
         {children}
       </body>
     </html>

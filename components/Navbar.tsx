@@ -31,8 +31,8 @@ export default function Navbar() {
           <Image
             src="/jubilee-logo.png"
             alt="LBRBDA Logo"
-            width={44}
-            height={44}
+            width={60}
+            height={60}
           />
           <div className="navbar-logo-text">
             LBRBDA

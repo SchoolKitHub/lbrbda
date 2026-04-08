@@ -134,8 +134,8 @@ export default function Hero() {
           <Image
             src="/jubilee-logo.png"
             alt="LBRBDA 50th Anniversary Logo"
-            width={160}
-            height={160}
+            width={220}
+            height={220}
             priority
           />
         </motion.div>

@@ -1392,3 +1392,103 @@ a:hover { color: var(--color-gold-light); }
   font-size: 1.5rem;
   color: var(--color-gold);
 }
+
+/* ============================================
+   Governor Profile Card (Map Sidebar)
+   ============================================ */
+.gov-card {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.5rem;
+}
+
+.gov-portrait-container {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.gov-portrait {
+  border-radius: 50%;
+  border: 2px solid var(--color-gold);
+  object-fit: cover;
+}
+
+.gov-status-dot {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 12px;
+  height: 12px;
+  background: var(--color-gold);
+  border-radius: 50%;
+  border: 2px solid var(--color-dark-bg);
+}
+
+.gov-info {
+  flex-grow: 1;
+}
+
+.gov-name {
+  font-family: var(--font-playfair), serif;
+  font-size: 1.2rem;
+  color: var(--color-text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.gov-title {
+  font-size: 0.8rem;
+  color: var(--color-gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.gov-vision {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent);
+  margin: 1.5rem 0;
+}
+
+.sidebar-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.map-info-card.compact {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-md);
+  transition: transform 0.3s ease;
+}
+
+.map-info-card.compact:hover {
+  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.map-info-card.compact .map-info-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.map-info-desc.mini {
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  opacity: 0.7;
+}

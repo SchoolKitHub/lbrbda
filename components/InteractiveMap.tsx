@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 
 const MapContainer = dynamic(
@@ -134,6 +134,36 @@ const statesGeoJSON = {
   ],
 };
 
+import Image from "next/image";
+
+// Governor data mapping
+const governorData: Record<string, { name: string; title: string, portrait: string, vision: string }> = {
+  Benue: {
+    name: "Rev. Fr. Hyacinth Alia",
+    title: "Executive Governor, Benue State",
+    portrait: "/portrait_gov_benue.png",
+    vision: "Transforming Benue into a global agricultural powerhouse through modern irrigation and strategic water resource management.",
+  },
+  Nasarawa: {
+    name: "Engr. Abdullahi Sule",
+    title: "Executive Governor, Nasarawa State",
+    portrait: "/portrait_gov_nasarawa.png",
+    vision: "Driving industrialization and sustainable food security by leveraging the basin's immense water and agricultural potentials.",
+  },
+  Plateau: {
+    name: "Barr. Caleb Mutfwang",
+    title: "Executive Governor, Plateau State",
+    portrait: "/portrait_gov_plateau.png",
+    vision: "Harnessing technology and precision agriculture to secure livelihoods and advance climate-smart farming on the Plateau.",
+  },
+  Kogi: {
+    name: "Alhaji Ahmed Usman Ododo",
+    title: "Executive Governor, Kogi State",
+    portrait: "/portrait_gov_kogi.png",
+    vision: "Strengthening the agro-industrial value chain and logistical connectivity between our farms and the national market.",
+  },
+};
+
 const components = [
   {
     icon: "🏗️",
@@ -157,7 +187,7 @@ const components = [
   },
 ];
 
-function MapComponent() {
+function MapComponent({ onStateSelect }: { onStateSelect: (name: string) => void }) {
   const [leafletLoaded, setLeafletLoaded] = useState(false);
 
   useEffect(() => {
@@ -206,7 +236,7 @@ function MapComponent() {
     <MapContainer
       center={[8.3, 8.5]}
       zoom={7}
-      style={{ height: "100%", minHeight: 500, borderRadius: "var(--radius-lg)" }}
+      style={{ height: "100%", minHeight: 600, borderRadius: "var(--radius-lg)" }}
       scrollWheelZoom={false}
     >
       <TileLayer
@@ -226,10 +256,12 @@ function MapComponent() {
           layer.bindPopup(
             `<h3>${props.name} State</h3>
              <p style="font-weight:600;color:#c9a84c;margin-bottom:4px">${props.component}</p>
-             <p>${props.desc}</p>
-             <p style="font-size:0.8rem;margin-top:8px;opacity:0.7">${props.details}</p>`
+             <p>${props.desc}</p>`
           );
           layer.on({
+            click: () => {
+              onStateSelect(props.name);
+            },
             mouseover: (e) => {
               const target = e.target;
               target.setStyle({
@@ -254,6 +286,9 @@ function MapComponent() {
 export default function InteractiveMap() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [selectedState, setSelectedState] = useState<string>("Benue");
+
+  const gov = governorData[selectedState];
 
   return (
     <section className="section section-alt map-section" id="map" ref={ref}>
@@ -288,8 +323,8 @@ export default function InteractiveMap() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            Click or hover over the four states to discover LBRBDA&apos;s
-            project components and infrastructure across the basin.
+            Select a state on the map to view infrastructure components and
+            leadership vision for the Jubilee transformation.
           </motion.p>
         </div>
 
@@ -300,16 +335,50 @@ export default function InteractiveMap() {
           transition={{ delay: 0.4, duration: 0.7 }}
         >
           <div className="map-container">
-            <MapComponent />
+            <MapComponent onStateSelect={setSelectedState} />
           </div>
           <div className="map-sidebar">
-            {components.map((comp, i) => (
-              <div className="map-info-card" key={i}>
-                <div className="map-info-icon">{comp.icon}</div>
-                <h4 className="map-info-title">{comp.title}</h4>
-                <p className="map-info-desc">{comp.desc}</p>
-              </div>
-            ))}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedState}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="gov-card"
+              >
+                <div className="gov-portrait-container">
+                  <Image
+                    src={gov.portrait}
+                    alt={gov.name}
+                    width={80}
+                    height={80}
+                    className="gov-portrait"
+                  />
+                  <div className="gov-status-dot" />
+                </div>
+                <div className="gov-info">
+                  <h4 className="gov-name">{gov.name}</h4>
+                  <p className="gov-title">{gov.title}</p>
+                  <p className="gov-vision">
+                    &ldquo;{gov.vision}&rdquo;
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="sidebar-divider" />
+
+            <div className="sidebar-grid">
+              {components.map((comp, i) => (
+                <div className="map-info-card compact" key={i}>
+                  <div className="map-info-icon">{comp.icon}</div>
+                  <div className="map-info-text">
+                    <h5 className="map-info-title">{comp.title}</h5>
+                    <p className="map-info-desc mini">{comp.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

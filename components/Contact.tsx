@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { trackContactLinkClick } from "@/lib/analytics";
 
 export default function Contact() {
   const ref = useRef(null);
@@ -51,7 +52,7 @@ export default function Contact() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            <a href="mailto:info@lbrbda.gov.ng" className="btn-primary">
+            <a href="mailto:info@lbrbda.gov.ng" className="btn-primary" onClick={() => trackContactLinkClick("email")}>
               🌍 Get In Touch
             </a>
           </motion.div>

@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, EffectCoverflow } from "swiper/modules";
 import Image from "next/image";
+import { trackBoardMemberView } from "@/lib/analytics";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -118,7 +119,7 @@ export default function BoardSlider() {
           >
             {boardMembers.map((member, i) => (
               <SwiperSlide key={i} style={{ maxWidth: 360 }}>
-                <div className="board-slide">
+                <div className="board-slide" onMouseEnter={() => trackBoardMemberView(member.name, member.title)}>
                   <div className="board-portrait">
                     <Image
                       src={member.image}

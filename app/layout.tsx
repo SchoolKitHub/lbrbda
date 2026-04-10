@@ -36,6 +36,8 @@ export const metadata: Metadata = {
 };
 
 import OrientationBarrier from "@/components/OrientationBarrier";
+import AnalyticsProvider from "@/components/AnalyticsProvider";
+import PasswordGate from "@/components/PasswordGate";
 
 export default function RootLayout({
   children,
@@ -46,7 +48,11 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body style={{ fontFamily: "var(--font-inter), system-ui, sans-serif" }}>
         <OrientationBarrier />
-        {children}
+        <PasswordGate>
+          <AnalyticsProvider>
+            {children}
+          </AnalyticsProvider>
+        </PasswordGate>
       </body>
     </html>
   );

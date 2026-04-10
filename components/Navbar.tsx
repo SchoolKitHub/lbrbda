@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { trackNavClick } from "@/lib/analytics";
 
 const navLinks = [
   { label: "Home", href: "#hero" },
@@ -44,7 +45,10 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                onClick={() => setMenuOpen(false)}
+                onClick={() => {
+                  trackNavClick(link.label);
+                  setMenuOpen(false);
+                }}
               >
                 {link.label}
               </a>

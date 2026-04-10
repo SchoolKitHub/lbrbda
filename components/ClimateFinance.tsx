@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { trackFinanceCardView } from "@/lib/analytics";
 
 const cards = [
   {
@@ -70,6 +71,7 @@ export default function ClimateFinance() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.3 + i * 0.15, duration: 0.6 }}
+              onViewportEnter={() => trackFinanceCardView(card.label)}
             >
               <div className="finance-icon">{card.icon}</div>
               <div className="finance-value">{card.value}</div>

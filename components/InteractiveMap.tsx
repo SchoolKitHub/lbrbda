@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
+import { trackMapStateClick, trackMapStateHover } from "@/lib/analytics";
 
 const MapContainer = dynamic(
   () => import("react-leaflet").then((m) => m.MapContainer),
@@ -260,9 +261,11 @@ function MapComponent({ onStateSelect }: { onStateSelect: (name: string) => void
           );
           layer.on({
             click: () => {
+              trackMapStateClick(props.name);
               onStateSelect(props.name);
             },
             mouseover: (e) => {
+              trackMapStateHover(props.name);
               const target = e.target;
               target.setStyle({
                 fillOpacity: 0.5,

@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { trackCTAClick } from "@/lib/analytics";
 
 function CountdownTimer() {
   const targetDate = useMemo(() => new Date("2026-06-12T00:00:00").getTime(), []);
@@ -187,10 +188,10 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.6 }}
         >
-          <a href="#finance" className="btn-primary">
+          <a href="#finance" className="btn-primary" onClick={() => trackCTAClick("explore_investment", "hero")}>
             🌍 Explore Investment Opportunities
           </a>
-          <a href="#map" className="btn-outline">
+          <a href="#map" className="btn-outline" onClick={() => trackCTAClick("explore_basin", "hero")}>
             🗺️ Explore the Basin
           </a>
         </motion.div>

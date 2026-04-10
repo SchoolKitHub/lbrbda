@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
+import { trackRoadmapPhaseView } from "@/lib/analytics";
 
 const phases = [
   {
@@ -84,6 +85,7 @@ export default function Roadmap() {
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4 + i * 0.2, duration: 0.7 }}
+              onViewportEnter={() => trackRoadmapPhaseView(phase.phase)}
             >
               {/* Image side */}
               <div

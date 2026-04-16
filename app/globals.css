@@ -1909,3 +1909,221 @@ a:hover { color: var(--color-gold-light); }
   filter: blur(0);
   transition: filter 0.8s ease-in-out;
 }
+
+/* ============================================
+   Chairman Pitch Section
+   ============================================ */
+.chairman-pitch {
+  background: var(--gradient-section-alt);
+  position: relative;
+  overflow: hidden;
+  padding-top: 2rem;
+  padding-bottom: 6rem;
+}
+
+.chairman-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.chairman-image-container {
+  position: relative;
+  z-index: 2;
+}
+
+.portrait-frame {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  border: 1px solid rgba(201,168,76,0.3);
+  transform: rotate(-1deg);
+  transition: transform var(--transition-smooth);
+}
+
+.portrait-frame:hover {
+  transform: rotate(0) translateY(-10px);
+}
+
+.chairman-portrait {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.portrait-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,22,40,0.8) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.portrait-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.5rem 2rem;
+  background: linear-gradient(to top, var(--color-navy) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+}
+
+.chairman-name {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-gold);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+.chairman-role {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+}
+
+.frame-decoration {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 120px;
+  height: 120px;
+  border-top: 3px solid var(--color-gold);
+  border-right: 3px solid var(--color-gold);
+  border-radius: 0 var(--radius-md) 0 0;
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.chairman-content {
+  position: relative;
+  z-index: 2;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--color-gold);
+}
+
+.pitch-text {
+  margin-top: 2rem;
+}
+
+.pitch-intro {
+  font-size: 1.35rem;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  margin-bottom: 2rem;
+  font-style: italic;
+  font-family: var(--font-playfair), serif;
+  color: var(--color-gold-light);
+}
+
+.pitch-body p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: var(--color-text-secondary);
+}
+
+.pitch-body strong {
+  color: var(--color-gold-light);
+}
+
+.chairman-signature {
+  margin-top: 4rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid rgba(201,168,76,0.3);
+}
+
+.signature-accent {
+  width: 40px;
+  height: 2px;
+  background: var(--color-gold);
+  margin-bottom: 1.5rem;
+}
+
+.signature-quote {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.chairman-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.chairman-meta strong {
+  color: var(--color-gold);
+  font-size: 1rem;
+}
+
+.chairman-meta span {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pitch-bg-glow {
+  position: absolute;
+  top: 50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.pitch-pattern {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 40%;
+  background-image: radial-gradient(rgba(201,168,76,0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: linear-gradient(to left, black, transparent);
+  -webkit-mask-image: linear-gradient(to left, black, transparent);
+  z-index: 0;
+  opacity: 0.5;
+}
+
+@media (max-width: 968px) {
+  .chairman-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    text-align: center;
+  }
+  
+  .chairman-image-container {
+    max-width: 450px;
+    margin: 0 auto;
+  }
+  
+  .portrait-frame {
+    transform: rotate(0);
+  }
+  
+  .chairman-signature {
+    padding-left: 0;
+    border-left: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import ChairmanPitch from "@/components/ChairmanPitch";
 import CurrentVsFuture from "@/components/CurrentVsFuture";
 import JubileeHighlights from "@/components/JubileeHighlights";
 import ClimateFinance from "@/components/ClimateFinance";
@@ -23,6 +24,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <ChairmanPitch />
         <CurrentVsFuture />
         <JubileeHighlights />
         <ClimateFinance />

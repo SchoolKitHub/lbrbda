@@ -16,7 +16,7 @@ const boardMembers = [
     name: "Dr. Amos Gizo Yadukso",
     title: "Chairman of the Governing Board",
     role: "Advisory/high-level guidance, especially for stakeholder engagement.",
-    image: "/board/yadukso-hd.png",
+    image: "/board/yadukso-white.png",
   },
   {
     name: "Engr. Terese Ninga",

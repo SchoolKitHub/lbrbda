@@ -17,10 +17,10 @@ export default function ChairmanPitch() {
           >
             <div className="portrait-frame">
               <Image 
-                src="/board/yadukso-hd.png" 
+                src="/board/yadukso-white.png" 
                 alt="Dr. Amos Gizo Yadukso - Chairman of the Governing Board"
-                width={600}
-                height={700}
+                width={700}
+                height={800}
                 className="chairman-portrait"
                 priority
               />

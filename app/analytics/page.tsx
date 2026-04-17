@@ -27,16 +27,29 @@ export default function AnalyticsDashboard() {
   const [events, setEvents] = useState<AnalyticsEvent[]>([]);
   const [activeSession, setActiveSession] = useState<string | null>(null);
   const [currentVisitorInfo, setCurrentVisitorInfo] = useState<any>(null);
+  const [realVisitors, setRealVisitors] = useState<Visitor[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Mocked historical data to simulate "Global Insights" as requested
-  const visitors: Visitor[] = useMemo(() => [
-    { id: 'v1', ip: '102.89.43.12', country: 'Nigeria', countryCode: 'NG', device: 'iPhone 15 Pro', browser: 'Safari', os: 'iOS', lastActive: '2m ago', status: 'online' },
-    { id: 'v2', ip: '197.210.64.33', country: 'Nigeria', countryCode: 'NG', device: 'Samsung S24', browser: 'Chrome', os: 'Android', lastActive: '5m ago', status: 'online' },
-    { id: 'v3', ip: '54.239.26.11', country: 'United States', countryCode: 'US', device: 'ThinkPad X1', browser: 'Edge', os: 'Windows 11', lastActive: '12m ago', status: 'idle' },
-    { id: 'v4', ip: '41.190.12.8', country: 'Nigeria', countryCode: 'NG', device: 'MacBook Pro', browser: 'Chrome', os: 'macOS', lastActive: '18m ago', status: 'offline' },
-    { id: 'v5', ip: '82.132.221.7', country: 'United Kingdom', countryCode: 'GB', device: 'iPad Air', browser: 'Safari', os: 'iPadOS', lastActive: '24m ago', status: 'offline' },
-    { id: 'v6', ip: '2.16.7.142', country: 'France', countryCode: 'FR', device: 'iPhone 13', browser: 'Safari', os: 'iOS', lastActive: '45m ago', status: 'offline' },
-  ], []);
+  // Fetch real visitors from our bridge API
+  useEffect(() => {
+    const fetchVisitors = async () => {
+      try {
+        const res = await fetch('/api/analytics/visitors');
+        if (res.ok) {
+          const data = await res.json();
+          setRealVisitors(data);
+        }
+      } catch (e) {
+        console.error("Failed to fetch live visitors:", e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchVisitors();
+    const interval = setInterval(fetchVisitors, 30000); // Poll every 30 seconds
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     // Collect specific properties for the "Current Visitor" visualization
@@ -162,15 +175,15 @@ export default function AnalyticsDashboard() {
                     <th>IP Address</th>
                     <th>Region</th>
                     <th>Device / OS</th>
-                    <th>Status</th>
+                    <th>Last Active</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {visitors.map((v) => (
+                  {realVisitors.map((v) => (
                     <tr key={v.id}>
                       <td className="vis-id">
                         <span className={`status-icon ${v.status}`} />
-                        {v.id === 'v1' ? 'You' : v.id}
+                        {v.id}
                       </td>
                       <td className="vis-ip">{v.ip}</td>
                       <td className="vis-geo">
@@ -184,6 +197,16 @@ export default function AnalyticsDashboard() {
                       <td className="vis-time">{v.lastActive}</td>
                     </tr>
                   ))}
+                  {isLoading && realVisitors.length === 0 && (
+                    <tr>
+                      <td colSpan={5} className="vis-loading">Syncing with Basin Intelligence...</td>
+                    </tr>
+                  )}
+                  {!isLoading && realVisitors.length === 0 && (
+                    <tr>
+                      <td colSpan={5} className="vis-empty">No external signals detected.</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
